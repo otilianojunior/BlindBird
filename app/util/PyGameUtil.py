@@ -18,11 +18,11 @@ class PyGameUtil:
             raise Exception(f"Erro ao carregar e trasformar escala da imagem: {ex}")
 
 
-if __name__ == "__main__":
-    util = PyGameUtil()
-    image_name = "pipe.png"
-    try:
-        loaded_image = util.load_image(image_name)
-        print(loaded_image)
-    except Exception as ex:
-        print(f"Erro: {ex}")
+# if __name__ == "__main__":
+#     util = PyGameUtil()
+#     image_name = "pipe.png"
+#     try:
+#         loaded_image = util.load_img_scale_2x(image_name)
+#         print(loaded_image)
+#     except Exception as ex:
+#         print(f"Erro: {ex}")
