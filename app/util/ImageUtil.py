@@ -4,13 +4,13 @@ import os
 class ImageUtil:
     def file_exists(self, image_name):
         try:
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            image_path = os.path.join(base_dir, 'app/assets/imgs', image_name)
+            # base_dir = os.path.dirname(os.path.abspath(__file__))
+            image_path = os.path.join('app/assets/imgs/', image_name)
             return os.path.exists(image_path)
         except Exception as ex:
             raise Exception(f"Erro ao verificar a existência do arquivo: {ex}")
 
-    def load_image(self, image_name):
+    def image_path(self, image_name):
         try:
             if self.file_exists(image_name):
                 base_dir = os.path.dirname(os.path.abspath(__file__))

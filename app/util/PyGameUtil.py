@@ -5,7 +5,7 @@ from app.util.ImageUtil import ImageUtil
 class PyGameUtil:
     def load_image(self, image_name):
         try:
-            image = pygame.image.load(ImageUtil().load_image(image_name))
+            image = pygame.image.load(ImageUtil().image_path(image_name))
             return image
         except Exception as ex:
             raise Exception(f"Erro ao carregar a imagem: {ex}")
