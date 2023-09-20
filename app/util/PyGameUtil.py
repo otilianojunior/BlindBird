@@ -43,3 +43,10 @@ class PyGameUtil:
             return pygame.font.init()
         except Exception as ex:
             raise Exception(f"Erro ao iniciar fontes no pygame: {ex}")
+
+    def load_font(self, font_path, font_size):
+        try:
+            fonte = pygame.font.Font(font_path, font_size)
+            return fonte
+        except Exception as ex:
+            raise Exception(f"Erro ao carregar fonte: {ex}")

@@ -5,11 +5,13 @@ IMAGEM_PASSARO = [
     PyGameUtil().load_img_scale_2x('bird1.png'),
     PyGameUtil().load_img_scale_2x('bird2.png'),
     PyGameUtil().load_img_scale_2x('bird3.png'),
+    PyGameUtil().load_img_scale_2x('bird4.png'),
 ]
 
 
 class Passaro:
     IMGS = IMAGEM_PASSARO
+
     # animações da rotação
     ROTACAO_MAXIMA = 25
     VELOCIDADE_ROTACAO = 20
@@ -26,7 +28,7 @@ class Passaro:
         self.imagem = self.IMGS[0]
 
     def pular(self):
-        self.velocidade = -10.5
+        self.velocidade = - 11 #altura do pulo do passaro
         self.tempo = 0
         self.altura = self.y
 
@@ -51,21 +53,25 @@ class Passaro:
             if self.angulo > - 35:
                 self.angulo -= self.VELOCIDADE_ROTACAO
 
-    def desenhar(self, tela):
-        # definir qual imagem do passaro vai usar
+    def desenhar(self, tela, game_over):
+        # Definir qual imagem do passaro vai usar
         self.contagem_imagem += 1
 
-        if self.contagem_imagem < self.TEMPO_ANIMACAO:
-            self.imagem = self.IMGS[0]
-        elif self.contagem_imagem < self.TEMPO_ANIMACAO*2:
-            self.imagem = self.IMGS[1]
-        elif self.contagem_imagem < self.TEMPO_ANIMACAO*3:
-            self.imagem = self.IMGS[2]
-        elif self.contagem_imagem < self.TEMPO_ANIMACAO*4:
-            self.imagem = self.IMGS[1]
-        elif self.contagem_imagem >= self.TEMPO_ANIMACAO*4 + 1:
-            self.imagem = self.IMGS[0]
-            self.contagem_imagem = 0
+        if game_over:
+            # Usar a imagem do passaro bird4 quando o jogo estiver no estado de "game over"
+            self.imagem = self.IMGS[3]
+        else:
+            if self.contagem_imagem < self.TEMPO_ANIMACAO:
+                self.imagem = self.IMGS[0]
+            elif self.contagem_imagem < self.TEMPO_ANIMACAO * 2:
+                self.imagem = self.IMGS[1]
+            elif self.contagem_imagem < self.TEMPO_ANIMACAO * 3:
+                self.imagem = self.IMGS[2]
+            elif self.contagem_imagem < self.TEMPO_ANIMACAO * 4:
+                self.imagem = self.IMGS[1]
+            elif self.contagem_imagem >= self.TEMPO_ANIMACAO * 4 + 1:
+                self.imagem = self.IMGS[0]
+                self.contagem_imagem = 0
 
         # se o passaro tiver caindo eu não vou bater asa
         if self.angulo <= -80:

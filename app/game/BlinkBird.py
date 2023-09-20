@@ -6,6 +6,15 @@ from app.game.Texto import Texto
 from app.game.Passaro import Passaro
 
 
+def verificar_colisao(passaros, canos, tela):
+    if not tela.game_over:
+        for cano in canos:
+            for i, passaro in enumerate(passaros):
+                if cano.colidir(passaro):
+                    tela.game_over = True
+                    break
+
+
 def blink_main():
     passaros = [Passaro(230, 350)]
     chao = Chao(730)
@@ -16,7 +25,7 @@ def blink_main():
     relogio = pygame.time.Clock()
 
     rodando = True
-    passaro_status = "alive"
+    tela.game_over = False
 
     while rodando:
         relogio.tick(30)
@@ -29,20 +38,13 @@ def blink_main():
                 quit()
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_SPACE:
-                    if passaro_status == "alive":
+                    if not tela.game_over:
                         for passaro in passaros:
                             passaro.pular()
 
-        # Verificar colisões
-        if passaro_status == "alive":
-            for cano in canos:
-                for i, passaro in enumerate(passaros):
-                    if cano.colidir(passaro):
-                        passaro_status = "dead"  # Define o status do pássaro como "dead"
-                        break  # Sai do loop interno
+        verificar_colisao(passaros, canos, tela)
 
-        # mover as coisas
-        if passaro_status == "alive":
+        if not tela.game_over:
             for passaro in passaros:
                 passaro.mover()
             chao.mover()
@@ -66,6 +68,8 @@ def blink_main():
 
             for i, passaro in enumerate(passaros):
                 if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
-                    passaro_status = "dead"  # Define o status do pássaro como "dead"
+                    tela.game_over = True
 
-        tela.desenhar_tela(passaros, canos, chao, pontos)
+        tela.tela_principal(passaros, canos, chao, pontos)
+        if tela.game_over:
+            tela.tela_game_over(pontos)
