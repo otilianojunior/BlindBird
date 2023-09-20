@@ -37,3 +37,9 @@ class PyGameUtil:
             return superficie
         except Exception as ex:
             raise Exception(f"Erro ao criar nova superficie: {ex}")
+
+    def init_font(self):
+        try:
+            return pygame.font.init()
+        except Exception as ex:
+            raise Exception(f"Erro ao iniciar fontes no pygame: {ex}")
